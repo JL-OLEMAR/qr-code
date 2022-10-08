@@ -1,36 +1,38 @@
 ---
 export interface Props {
-	title?: string;
+  title?: string
 }
 
-const { title ='QR Code' } = Astro.props;
+const { title = 'QR Code' } = Astro.props
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <title>{title}</title>
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+    <style is:global>
+      :root {
+        --color-text: hsl(12, 5%, 4%);
+        --color-bg: #D3DFED;
+        --color-border: hsl(17, 24%, 90%);
+      }
+
+      html {
+        font-family: system-ui, sans-serif;
+        color: var(--color-text);
+        background-color: var(--color-bg);
+      }
+
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-		--color-bg: #D3DFE3;
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-</style>

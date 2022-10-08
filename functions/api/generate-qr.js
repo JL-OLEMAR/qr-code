@@ -1,4 +1,6 @@
-export async function onRequestGet(context) {
+import qr from 'qrcode'
+
+export async function onRequestPost(context) {
   // Contents of context object
   // const {
   //   request, // same as existing Worker API
@@ -9,5 +11,22 @@ export async function onRequestGet(context) {
   //   data // arbitrary space for passing data between middlewares
   // } = context
 
-  return new Response('Hello, world!')
+  const { request } = context
+
+  // read the body from the request
+  const { url } = await request.json()
+
+  const qrImage = await qr.toString(url, {
+    type: 'svg',
+    color: {
+      light: '#3685FF',
+      dark: '#FFFFFF'
+    }
+  })
+
+  return new Response(JSON.stringify({ svg: qrImage }), {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
